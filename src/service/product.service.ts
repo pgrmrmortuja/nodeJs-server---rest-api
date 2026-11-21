@@ -11,7 +11,7 @@ export const productService = () => {
     // console.log(result); //Buffer
 
     const result = fs.readFileSync(filePath , "utf-8");
-    console.log(result);
+    // console.log(result);
 
     // return result;
 
