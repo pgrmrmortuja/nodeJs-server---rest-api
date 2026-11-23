@@ -14,6 +14,16 @@ const productController = async (req: IncomingMessage, res: ServerResponse) => {
 
         const products = productService();
 
+        if (!products) {
+            res.writeHead(404, {
+                "content-type": "application/json"
+            })
+
+            res.end(JSON.stringify({
+                "message": "Product not found."
+            }))
+        }
+
         res.writeHead(200, {
             "content-type": "application/json"
         });
@@ -28,6 +38,16 @@ const productController = async (req: IncomingMessage, res: ServerResponse) => {
         const products = productService();
         const product = products.find((p: IProduct) => p.id === id);
         // console.log("Single product: ", product)
+
+        if (!product) {
+            res.writeHead(404, {
+                "content-type": "application/json"
+            })
+
+            res.end(JSON.stringify({
+                "message": "Product not found."
+            }))
+        }
 
         res.writeHead(200, {
             "content-type": "application/json"
@@ -100,10 +120,6 @@ const productController = async (req: IncomingMessage, res: ServerResponse) => {
 
         const index = products.findIndex((p: IProduct) => p.id === id);
 
-        products.splice(index , 1);
-
-        createProduct(products);
-
         if (index < 0) {
             res.writeHead(404, {
                 "content-type": "application/json"
@@ -113,6 +129,10 @@ const productController = async (req: IncomingMessage, res: ServerResponse) => {
                 "message": "Product not found."
             }))
         }
+
+        products.splice(index, 1);
+
+        createProduct(products);
 
         res.writeHead(200, {
             "content-type": "application/json"
