@@ -7,5 +7,5 @@ export const sendResponse = (res: ServerResponse, success: boolean , statusCode:
         "content-type": "application/json"
     });
 
-    res.end(JSON.stringify({response}));
+    res.end(JSON.stringify(response));
 };
